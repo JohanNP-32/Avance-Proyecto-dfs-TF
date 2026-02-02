@@ -1,0 +1,170 @@
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 100;
+  background: rgba(10, 10, 10, 0.9);
+  border-bottom: 1px solid #222;
+}
+
+.logo { font-family: var(--font-heading); font-size: 1.5rem; letter-spacing: 3px; font-weight: 700; cursor: pointer; }
+nav button { background: none; border: none; color: #fff; margin-left: 20px; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1.5px; cursor: pointer; }
+
+/* Hero */
+.hero {
+  height: 85vh; /* Un poco más alto para más impacto */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  /* 2. IMAGEN DE FONDO CON CAPA OSCURA
+     Asegúrate de que el nombre del archivo coincida con el que guardaste en public/img/
+  */
+  background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('/img/hero-bg.jpg'); 
+  background-size: cover;
+  background-position: center;
+  background-color: #1a1a1a; 
+}
+
+.hero h1 {
+  font-size: 5rem; 
+  margin-bottom: 10px;
+  letter-spacing: 5px;
+  font-weight: 700;
+}
+
+.hero p {
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    margin-bottom: 0; 
+}
+
+.hero-content button {
+    margin-top: 40px; 
+}
+/* Grid Productos */
+.products-section { padding: 80px 0; text-align: center; }
+.products-section h2 { margin-bottom: 50px; font-size: 2rem; }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 40px;
+}
+
+.card {
+  text-align: center;
+  padding: 20px;
+  transition: transform 0.3s;
+}
+.card:hover { transform: translateY(-5px); }
+
+.img-container {
+  height: 300px;
+  background: #111;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.img-container img { max-height: 80%; max-width: 80%; }
+
+.card h3 { font-size: 1.1rem; margin-bottom: 5px; text-transform: uppercase; }
+.category { color: var(--color-gold); font-size: 0.7rem; text-transform: uppercase; margin-bottom: 10px; }
+.price { font-weight: 600; font-size: 0.9rem; }
+
+/* Login & Registro - Estilo High-End */
+.login-container {
+  min-height: 80vh; /* Ocupa buena altura pero deja ver footer */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-bg);
+}
+
+.login-box {
+  width: 100%;
+  max-width: 400px;
+  padding: 40px;
+  text-align: center;
+  /* Opcional: Borde muy sutil para encuadrar */
+  border: 1px solid #1a1a1a; 
+}
+
+/* Tabs de navegación (Ingresar | Crear) */
+.auth-tabs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 40px;
+  gap: 15px;
+}
+
+.auth-tabs button {
+  background: none;
+  border: none;
+  color: #666;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: color 0.3s;
+  text-transform: uppercase;
+}
+
+.auth-tabs button.active {
+  color: #fff;
+  border-bottom: 1px solid var(--color-gold); /* Detalle dorado sutil */
+  padding-bottom: 5px;
+}
+
+.auth-tabs .divider { color: #333; font-size: 0.8rem; }
+
+.auth-title {
+  margin-bottom: 40px;
+  font-size: 1.8rem;
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+
+/* Inputs Minimalistas (Solo línea inferior) */
+.input-group { margin-bottom: 25px; }
+
+.login-container input {
+  width: 100%;
+  padding: 15px 0; /* Sin padding lateral */
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #333; /* Línea gris oscura */
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  transition: border-color 0.3s;
+  outline: none;
+}
+
+.login-container input::placeholder {
+  color: #555;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+}
+
+.login-container input:focus {
+  border-bottom-color: #fff; /* Se ilumina al escribir */
+}
+
+/* Botón y Mensajes */
+.full-width { width: 100%; margin-top: 20px; }
+
+.msg { margin-top: 20px; font-size: 0.8rem; letter-spacing: 1px; }
+.msg.error { color: #cf4d4d; }
+.msg.success { color: #4dcf8f; }
+
+/* Footer */
+footer { padding: 40px; text-align: center; font-size: 0.7rem; color: #666; letter-spacing: 1px; border-top: 1px solid #222; margin-top: 50px;}
