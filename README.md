@@ -37,12 +37,11 @@ Asegúrate de tener instalado:
 3.  Ejecuta el script SQL proporcionado en el archivo `database.sql` para crear las tablas `productos` y `usuarios`.
 
 **IMPORTANTE:** Crea un archivo llamado `.env` en la raíz de la carpeta `backend` con el siguiente contenido:
-    env
-    DB_HOST=localhost
-    DB_USER=root
-    DB_PASSWORD=TU_CONTRASEÑA_DE_MYSQL
-    DB_NAME=tomford_db (nombre de tu base de datos)
-    PORT=5000 (el puerto disponible en tu dispositivo)
+    * DB_HOST=localhost
+    * DB_USER=root
+    * DB_PASSWORD=TU_CONTRASEÑA_DE_MYSQL
+    * DB_NAME=tomford_db (nombre de tu base de datos)
+    * PORT=5000 (el puerto disponible en tu dispositivo)
 
 ### 3. Configuración del Backend (Servidor)
 1.  Abre una terminal y navega a la carpeta del servidor:
