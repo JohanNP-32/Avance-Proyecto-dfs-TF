@@ -389,7 +389,7 @@ function App() {
     const item = newCart[index];
     
     if (change === 1 && item.quantity >= item.maxStock) {
-       alert(`Solo quedan ${item.maxStock} unidades disponibles.`);
+       alert(`No hay en stock`);
        return;
     }
 
