@@ -28,7 +28,7 @@ Sigue estos pasos para levantar el proyecto en tu entorno local.
 ### 1. Prerrequisitos
 Asegúrate de tener instalado:
 * [Node.js](https://nodejs.org/) (Versión LTS recomendada).
-* [MySQL Server](https://dev.mysql.com/downloads/mysql/) y Workbench.
+* [MySQL Server y Workbench] (https://dev.mysql.com/downloads/) 
 * Git.
 
 **IMPORTANTE:** Crea un archivo llamado `.env` en la raíz de la carpeta `backend` con el siguiente contenido:
