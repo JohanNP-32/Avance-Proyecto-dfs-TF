@@ -31,11 +31,6 @@ Asegúrate de tener instalado:
 * [MySQL Server](https://dev.mysql.com/downloads/mysql/) y Workbench.
 * Git.
 
-### 2. Configuración de la Base de Datos
-1.  Abre **MySQL Workbench**.
-2.  Crea una nueva base de datos llamada `tomford_db`.
-3.  Ejecuta el script SQL proporcionado en el archivo `database.sql` para crear las tablas `productos` y `usuarios`.
-
 **IMPORTANTE:** Crea un archivo llamado `.env` en la raíz de la carpeta `backend` con el siguiente contenido:
     DB_HOST=localhost
     DB_USER=root
@@ -43,7 +38,7 @@ Asegúrate de tener instalado:
     DB_NAME=tomford_db (nombre de tu base de datos)
     PORT=5000 (el puerto disponible en tu dispositivo)
 
-### 3. Configuración del Backend (Servidor)
+### 2. Configuración del Backend (Servidor)
 1.  Abre una terminal y navega a la carpeta del servidor:
     ```bash
     cd backend
@@ -62,7 +57,7 @@ Asegúrate de tener instalado:
     ```
     *Deberás ver el mensaje: "Base de datos corriendo en puerto 5000".*
 
-### 4. Configuración del Frontend (Cliente)
+### 3. Configuración del Frontend (Cliente)
 1.  Abre una **nueva terminal** y navega a la carpeta del cliente:
     ```bash
     cd frontend
