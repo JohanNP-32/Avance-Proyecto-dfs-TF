@@ -2,36 +2,100 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 
 // --- COMPONENTES ---
+// --- HEADER RESPONSIVO ---
+const Header = ({ setView, user, logout, cartCount, toggleCart }) => {
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
-const Header = ({ setView, user, logout, cartCount, toggleCart }) => (
-  <header className="header">
-    <div className="logo" onClick={() => setView('home')}>TOMFORD</div>
-    <nav>
-      <button onClick={() => setView('home')}>Fragancias</button>
-      <button onClick={() => setView('home')}>Más buscados</button>
-      <button onClick={() => setView('home')}>Regalos</button>
-      <button onClick={() => setView('home')}>Servicios</button>
-      <button onClick={() => setView('home')}>Ofertas exclusivas</button>
+  // Función para navegar y cerrar el menú automáticamente
+  const handleNavClick = (viewName) => {
+    setView(viewName);
+    setIsMenuOpen(false);
+  };
+
+  return (
+    <header className="header">
       
-      {user ? (
-        <button onClick={logout} style={{ marginLeft: '15px' }}>Salir ({user})</button>
-      ) : (
-        <button onClick={() => setView('login')} style={{ marginLeft: '15px' }}>Cuenta</button>
-      )}
-
-      <button onClick={toggleCart} className="cart-icon-btn" aria-label="Abrir carrito">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square" strokeLinejoin="miter">
-          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+      {/* BOTÓN HAMBURGUESA */}
+      <button 
+        className="mobile-menu-btn" 
+        onClick={() => setIsMenuOpen(true)}
+        aria-label="Abrir menú"
+      >
+        {/* Icono de 3 líneas */}
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
           <line x1="3" y1="6" x2="21" y2="6"></line>
-          <path d="M16 10a4 4 0 0 1-8 0"></path>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
         </svg>
-        {cartCount > 0 && <span className="cart-count">({cartCount})</span>}
       </button>
-    </nav>
-  </header>
-);
 
-// --- CART DRAWER ---
+      {/* LOGO */}
+      <div className="logo" onClick={() => handleNavClick('home')}>TOMFORD</div>
+
+      <nav className="desktop-nav">
+        <button onClick={() => setView('home')}>Fragancias</button>
+        <button onClick={() => setView('home')}>Más buscados</button>
+        <button onClick={() => setView('home')}>Regalos</button>
+        <button onClick={() => setView('home')}>Servicios</button>
+      </nav>
+
+      {/* ICONOS Y CUENTA */}
+      <div className="header-icons">
+        <div className="desktop-auth">
+          {user ? (
+            <button onClick={logout}>Salir ({user})</button>
+          ) : (
+            <button onClick={() => setView('login')}>Cuenta</button>
+          )}
+        </div>
+
+        {/* Carrito */}
+        <button onClick={toggleCart} className="cart-icon-btn" aria-label="Carrito">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+          </svg>
+          {cartCount > 0 && <span className="cart-count">({cartCount})</span>}
+        </button>
+      </div>
+
+      {/* MENÚ MÓVIL */}
+      <div className={`mobile-menu-overlay ${isMenuOpen ? 'active' : ''}`}>
+        
+        {/* Botón Cerrar */}
+        <button className="close-menu-btn" onClick={() => setIsMenuOpen(false)}>
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="square">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+
+        <div className="mobile-links-container">
+          <button onClick={() => handleNavClick('home')}>Fragancias</button>
+          <button onClick={() => handleNavClick('home')}>Más buscados</button>
+          <button onClick={() => handleNavClick('home')}>Regalos</button>
+          <button onClick={() => handleNavClick('home')}>Servicios</button>
+
+          <div className="mobile-auth-divider"></div>
+
+          {user ? (
+            <button className="mobile-auth-btn" onClick={() => { logout(); setIsMenuOpen(false); }}>
+              Cerrar Sesión ({user})
+            </button>
+          ) : (
+            <button className="mobile-auth-btn" onClick={() => handleNavClick('login')}>
+              Ingresar / Crear Cuenta
+            </button>
+          )}
+        </div>
+      </div>
+
+    </header>
+  );
+};
+
+
 const CartDrawer = ({ isOpen, closeCart, cart, removeFromCart, handleCheckout, updateCartSize, updateCartQuantity }) => {
   const total = cart.reduce((acc, item) => acc + (Number(item.precio) * item.quantity), 0);
 
@@ -117,7 +181,7 @@ const CartDrawer = ({ isOpen, closeCart, cart, removeFromCart, handleCheckout, u
   );
 };
 
-// --- HERO ---
+
 const Hero = () => {
   const scrollSafe = () => {
     const section = document.getElementById('catalogo');
@@ -135,7 +199,7 @@ const Hero = () => {
   );
 };
 
-// --- PRODUCT CARD ---
+
 const ProductCard = ({ prod, addToCart }) => {
   const [size, setSize] = useState('50ml'); 
   
@@ -194,7 +258,7 @@ const ProductCard = ({ prod, addToCart }) => {
   );
 };
 
-// --- PRODUCT GRID ---
+
 const ProductGrid = ({ addToCart }) => {
   const [productos, setProductos] = useState([]);
   const [error, setError] = useState(null);
@@ -285,7 +349,6 @@ const Login = ({ setUser, setView }) => {
   );
 };
 
-// --- APP PRINCIPAL ---
 
 function App() {
   const [view, setView] = useState('home');
@@ -350,12 +413,11 @@ function App() {
     setCart(newCart);
   };
 
-  // --- LÓGICA DE PAGO CORREGIDA (Con llamada al Backend) ---
+  
   const handleCheckout = async () => {
     if (cart.length === 0) return;
 
     try {
-      // 1. VALIDACIÓN PREVIA (Consultamos stock fresco)
       const resCheck = await fetch('http://localhost:5000/api/productos');
       if (!resCheck.ok) throw new Error('Error al conectar con inventario');
       
@@ -367,25 +429,23 @@ function App() {
         if (freshProduct) {
           const realStock = item.selectedSize === '50ml' ? freshProduct.stock_50 : freshProduct.stock_100;
           if (item.quantity > realStock) {
-            alert(`⚠️ STOCK INSUFICIENTE: \n\nEl producto "${item.nombre}" solo tiene ${realStock} unidades disponibles.`);
+            alert(`STOCK INSUFICIENTE`);
             return; 
           }
         }
       }
 
-      // 2. PROCESAR COMPRA (Si pasa la validación, mandamos restar el stock al servidor)
+     
       const resBuy = await fetch('http://localhost:5000/api/compra', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(cart) // Enviamos el carrito para que el backend reste
+        body: JSON.stringify(cart) 
       });
 
       if (resBuy.ok) {
         alert("Pedido confirmado. Gracias por su elegancia.");
         setCart([]); 
         setIsCartOpen(false);
-        // Opcional: Recargar página para actualizar grids
-        // window.location.reload(); 
       } else {
         throw new Error('Error al procesar la compra en el servidor');
       }
@@ -431,7 +491,27 @@ function App() {
         </div>
       )}
 
-      <footer><p>© 2024 TOMFORD BEAUTY. TODOS LOS DERECHOS RESERVADOS.</p></footer>
+      {/* --- FOOTER CON REDES SOCIALES --- */}
+      <footer className="footer">
+        <div className="social-links">
+          {/* Facebook */}
+          <a href="https://www.facebook.com/tomford/" target="_blank" rel="noreferrer" aria-label="Facebook">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+            </svg>
+          </a>
+          
+          {/* Instagram */}
+          <a href="https://www.instagram.com/tomford/" target="_blank" rel="noreferrer" aria-label="Instagram">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+          </a>
+        </div>
+        <p className="copyright">© 2026 TOMFORD BEAUTY. TODOS LOS DERECHOS RESERVADOS.</p>
+      </footer>
     </div>
   );
 }

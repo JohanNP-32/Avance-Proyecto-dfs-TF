@@ -12,10 +12,9 @@ app.use(cors());
 app.use(express.json());
 
 // --- RUTAS ---
-
 app.use('/api/auth', authRoutes);
 
-// 1. Ruta para obtener productos
+// Ruta para obtener productos
 app.get('/api/productos', async (req, res, next) => {
     try {
         const [rows] = await db.query('SELECT * FROM productos');
@@ -25,8 +24,7 @@ app.get('/api/productos', async (req, res, next) => {
     }
 });
 
-// 2. NUEVA RUTA: Procesar compra y restar stock
-// (Esta ruta DEBE ir antes del middleware de errores)
+
 app.post('/api/compra', async (req, res, next) => {
     try {
         const carrito = req.body; 
@@ -35,7 +33,7 @@ app.post('/api/compra', async (req, res, next) => {
         for (const item of carrito) {
             const columnaStock = item.selectedSize === '50ml' ? 'stock_50' : 'stock_100';
             
-            // Query segura usando await para restar el stock
+            
             const sql = `UPDATE productos SET ${columnaStock} = ${columnaStock} - ? WHERE id = ?`;
             
             await db.query(sql, [item.quantity, item.id]);
@@ -50,7 +48,6 @@ app.post('/api/compra', async (req, res, next) => {
 });
 
 // --- MANEJO DE ERRORES ---
-// (Esto siempre va AL FINAL de las rutas, pero ANTES del listen)
 app.use((err, req, res, next) => {
     console.error(`[Error]: ${err.stack}`);
     res.status(500).json({
@@ -62,4 +59,4 @@ app.use((err, req, res, next) => {
 
 // --- SERVIDOR ---
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Servidor Luxury corriendo en puerto ${PORT}`));
+app.listen(PORT, () => console.log(`Base de datos corriendo en puerto ${PORT}`));
